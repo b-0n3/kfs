@@ -18,14 +18,22 @@
     ./build.sh
 ```
 
+[//]: # ()
+[//]: # (##  create iso)
 
-##  create iso
+[//]: # ()
+[//]: # (```bash)
 
-```bash
-    mkdir iso
-    mkdir iso/boot
-    mkdir iso/boot/grub
-    cp out/kernel.bin iso/boot/kernel.bin
-    cp boot/grub/grub.cfg iso/boot/grub/grub.cfg
-    grub-mkrescue -o myos.iso iso
-```
+[//]: # (    mkdir iso)
+
+[//]: # (    mkdir iso/boot)
+
+[//]: # (    mkdir iso/boot/grub)
+
+[//]: # (    cp out/kernel.bin iso/boot/kernel.bin)
+
+[//]: # (    cp boot/grub/grub.cfg iso/boot/grub/grub.cfg)
+
+[//]: # (    grub-mkrescue -o myos.iso iso)
+
+[//]: # (```)
