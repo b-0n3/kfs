@@ -15,10 +15,7 @@
 
 ## build the kernel 
 ```bash
-    mkdir out
-    cd out 
-    cmake .. 
-    cmake --build .
+    ./build.sh
 ```
 
 
