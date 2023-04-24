@@ -1,5 +1,5 @@
 
-##  create cross-compiler
+##  build a cross-compiler
 ``
 @see https://wiki.osdev.org/GCC_Cross-Compiler
 ``
