@@ -1,31 +1,28 @@
-NAME=b-os
+TARGET=b-os.iso
+BUILD_DIR=./build
+BIN_DIR=./bin
+KERNEL=bin/kernel.bin
+KERNEL_DIR=src/kernel
+ISO_DIR=./iso
 
-GCC_FLAGS= -fno-builtin -fno-exceptions \
-			-fno-stack-protector -fno-stack-protector \
-			-O0 -fno-rtti -nostdlib -nodefaultlibs \
-			-nostartfiles -m32 -march=i386
-CC=${TARGET}-gcc
-CXX=${TARGET}-g++
-LD=${TARGET}-ld
-OBJCOPY=${TARGET}-objcopy
-
-BOOT=src/boot/boot.asm
-SRC=src/kernel/Kernel.cpp
-
-$(NAME) :
-	nasm -f elf32 $(BOOT) -o boot.o
-	$(CXX) $(GCC_FLAGS) -c $(SRC) -o kernel.o
-	$(LD) -T linker.ld -m elf_i386 boot.o kernel.o -o $(NAME)
+all: $(TARGET)
 
 
-ISO: $(NAME)
-	mkdir -p iso/boot/grub
-	cp $(NAME) iso/boot/
-	cp src/boot/grub/grub.cfg iso/boot/grub/
-	grub-mkrescue -o $(NAME).iso iso
+$(TARGET): $(KERNEL)
+	if [ ! -d $(ISO_DIR) ]; then mkdir -p $(ISO_DIR)/boot/grub; fi
+	cp $(KERNEL) $(ISO_DIR)/boot/b-os.bin
+	cp $(KERNEL_DIR)/boot/grub/* $(ISO_DIR)/boot/grub/
+	grub-mkrescue -o $(TARGET) $(ISO_DIR)
 
-re: clean all
+$(KERNEL): 
+	make re  -C $(KERNEL_DIR)
 
+clean: 
+	make clean -C $(KERNEL_DIR)
 
-run: ISO
-	qemu-system-i386 --cdrom $(NAME).iso
+fclean: clean
+	rm -rf $(KERNEL)
+	rm -rf $(TARGET)
+	rm -rf $(ISO_DIR)
+
+re: fclean all

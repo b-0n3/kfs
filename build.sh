@@ -1,6 +1,10 @@
 export PREFIX="$HOME/opt/cross"
 export TARGET=i386-elf
 export PATH="$PREFIX/bin:$PATH"
-
-make run
-
+export CC=${PREFIX}/bin/${TARGET}-gcc
+export CXX=${PREFIX}/bin/${TARGET}-g++
+export AR=${PREFIX}/bin/${TARGET}-ar
+export AS=${PREFIX}/bin/${TARGET}-as
+export LD=${PREFIX}/bin/${TARGET}-ld
+export RANLIB=${PREFIX}/bin/${TARGET}-ranlib
+make re
